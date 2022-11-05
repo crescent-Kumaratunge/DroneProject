@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.crescent.drone.exceptions.DroneBatteryException;
 import com.crescent.drone.exceptions.DroneExistsException;
 import com.crescent.drone.exceptions.DroneNotFoundException;
+import com.crescent.drone.exceptions.DroneWeightException;
 import com.crescent.drone.model.Drone;
 import com.crescent.drone.model.Medicine;
 import com.crescent.drone.service.DroneService;
@@ -37,17 +39,18 @@ public class DroneController {
 	}
 	
 	@PostMapping(path="/addMedicine/{serialNumber}")
-	public Medicine addMedicine(@RequestBody Medicine medicine,@PathVariable String serialNumber) {
+	public Medicine addMedicine(@RequestBody Medicine medicine,@PathVariable String serialNumber) throws DroneNotFoundException, DroneBatteryException, DroneWeightException {
 		return droneService.addMedicine(medicine.getName(), medicine.getWeight(), medicine.getCode(), 
 				medicine.getImageUrl(), serialNumber);
 	}
+	
 	@GetMapping(path = "/getAvailableDrones")
 	public List<Drone> getAvailableDrones(){
 		return droneService.findAvailableDrones();
 	}
 	
 	@GetMapping(path = "/getDroneBattery/{serialNumber}")
-	public ResponseEntity<Object> getDroneBattery(@PathVariable String serialNumber){
+	public ResponseEntity<Object> getDroneBattery(@PathVariable String serialNumber) throws DroneNotFoundException{
 		Map<String,Object > battery=new HashMap<>();
 		battery.put("battery", droneService.getBattery(serialNumber));
 		return new ResponseEntity<Object>(battery,HttpStatus.OK);

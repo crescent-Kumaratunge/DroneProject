@@ -2,8 +2,10 @@ package com.crescent.drone.service;
 
 import java.util.List;
 
+import com.crescent.drone.exceptions.DroneBatteryException;
 import com.crescent.drone.exceptions.DroneExistsException;
 import com.crescent.drone.exceptions.DroneNotFoundException;
+import com.crescent.drone.exceptions.DroneWeightException;
 import com.crescent.drone.model.Drone;
 import com.crescent.drone.model.Medicine;
 
@@ -12,9 +14,9 @@ public interface DroneService {
 
 	Drone registerDrone(Drone drone) throws DroneExistsException;
 
-	Medicine addMedicine(String name, long weight, String code, String imageUrl, String serialNumber);
+	Medicine addMedicine(String name, long weight, String code, String imageUrl, String serialNumber) throws DroneNotFoundException, DroneBatteryException, DroneWeightException;
 
 	List<Drone> findAvailableDrones();
 
-	long getBattery(String serialNumber);
+	long getBattery(String serialNumber) throws DroneNotFoundException;
 }
