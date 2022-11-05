@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -76,9 +78,8 @@ public class Medicine implements Serializable{
 		this.drone = drone;
 	}
 
-	public Medicine(int medicineId, String name, long weight, String code, String imageUrl, Drone drone) {
+	public Medicine(String name, long weight, String code, String imageUrl, Drone drone) {
 		super();
-		this.medicineId = medicineId;
 		this.name = name;
 		this.weight = weight;
 		this.code = code;
