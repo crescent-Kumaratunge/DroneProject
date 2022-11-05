@@ -46,19 +46,22 @@ public class DroneServiceImpl implements DroneService {
 			throws DroneNotFoundException, DroneBatteryException, DroneWeightException {
 		Drone drone=droneRepository.findBySerialNumber(serialNumber);
 		if(drone==null) {
-			throw new DroneNotFoundException(DRONE_NOT_FOUND+serialNumber);
+			throw new DroneNotFoundException(DRONE_NOT_FOUND+serialNumber);			
 		}
-		if(drone.getBattery()<MIN_BATTERY) {
+		else if(drone.getBattery()<MIN_BATTERY) {
 			throw new DroneBatteryException(DRONE_BATTERY_LOW);
 		}
-		if(drone.getWeight()+weight>MAX_WEIGHT) {
+		else if(drone.getWeight()+weight>MAX_WEIGHT) {
 			throw new DroneWeightException(DRONE_WEIGT_LOW);
 		}
+		else {
 		Medicine medicine=new Medicine(name, weight, code, imageUrl, drone);
-		drone.setWeight(drone.getWeight()-weight);
+		drone.setWeight(drone.getWeight()+weight);
 		medicineRepository.save(medicine);
 		droneRepository.save(drone);
-		return medicine;		
+		return medicine;
+		}
+				
 	}
 	
 	@Override
