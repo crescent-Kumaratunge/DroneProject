@@ -1,0 +1,22 @@
+CREATE TABLE `drone` (
+   `drone_id` int NOT NULL AUTO_INCREMENT,
+   `battery` bigint NOT NULL,
+   `model` varchar(255) DEFAULT NULL,
+   `serial_number` varchar(255) DEFAULT NULL,
+   `state` varchar(255) DEFAULT NULL,
+   `weight` bigint NOT NULL,
+   PRIMARY KEY (`drone_id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `medicine` (
+   `medicine_id` int NOT NULL AUTO_INCREMENT,
+   `code` varchar(255) DEFAULT NULL,
+   `image_url` varchar(255) DEFAULT NULL,
+   `name` varchar(255) DEFAULT NULL,
+   `weight` bigint NOT NULL,
+   `drone_id` int DEFAULT NULL,
+   PRIMARY KEY (`medicine_id`),
+   KEY `FKihjqnx3btlouv4492noflx7o7` (`drone_id`),
+   CONSTRAINT `FKihjqnx3btlouv4492noflx7o7` FOREIGN KEY (`drone_id`) REFERENCES `drone` (`drone_id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
