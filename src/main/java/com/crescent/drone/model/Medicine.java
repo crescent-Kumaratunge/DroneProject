@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,8 +15,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "medicine")
 public class Medicine implements Serializable{
+	/**
+	 * 
+	 */
 	@Id
 	@Column(name = "medicine_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int medicineId;
 	@Column(name = "name")
 	private String name;
@@ -26,7 +31,7 @@ public class Medicine implements Serializable{
 	@Column(name = "image_url")
 	private String imageUrl;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "drone_id")
 	private Drone drone;
 

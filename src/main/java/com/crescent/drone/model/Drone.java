@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Drone implements Serializable{
 	@Id
 	@Column(name = "drone_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int droneId;
 	@Column(name = "serial_number")
 	private String serialNumber;
