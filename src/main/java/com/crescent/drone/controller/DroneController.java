@@ -24,6 +24,7 @@ import com.crescent.drone.exceptions.InvalidDroneModelException;
 import com.crescent.drone.exceptions.InvalidDroneStateException;
 import com.crescent.drone.exceptions.InvalidMedicineCodeException;
 import com.crescent.drone.exceptions.InvalidMedicineNameException;
+import com.crescent.drone.exceptions.InvalidSerialNumberException;
 import com.crescent.drone.model.Drone;
 import com.crescent.drone.model.Medicine;
 import com.crescent.drone.service.DroneService;
@@ -45,12 +46,15 @@ public class DroneController {
 	}
 	
 	@PostMapping(path = "/registerDrone")
-	public ResponseEntity<Drone> registerDrone(@RequestBody Drone drone) throws DroneExistsException, InvalidDroneModelException, InvalidDroneStateException {
+	public ResponseEntity<Drone> registerDrone(@RequestBody Drone drone) throws DroneExistsException, InvalidDroneModelException, InvalidDroneStateException, InvalidSerialNumberException {
 		if(!Arrays.asList(DRONE_MODELS).contains(drone.getModel())) {
 			throw new InvalidDroneModelException(INVALID_DRONE_MODEL);
 		}
 		if(!Arrays.asList(DRONE_STATES).contains(drone.getState())) {
 			throw new InvalidDroneStateException(INVALID_DRONE_STATES);
+		}
+		if(drone.getSerialNumber().length()>MAX_SNO_LENGTH||drone.getSerialNumber().trim().length()==0) {
+			throw new InvalidSerialNumberException(INVALID_SERIAL_NUMBER);
 		}
 		return new ResponseEntity<>(droneService.registerDrone(drone),HttpStatus.OK);
 	}

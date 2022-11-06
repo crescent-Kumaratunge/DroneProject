@@ -55,6 +55,14 @@ public class ExceptionHandling implements ErrorController {
 	public ResponseEntity<HttpResponse> droneNotReadyException(DroneNotReadyException exception){
 		return createHttpResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
 	}
+	
+	@ExceptionHandler(InvalidSerialNumberException.class)
+	public ResponseEntity<HttpResponse> invalidSerialNumberException(InvalidSerialNumberException exception){
+		return createHttpResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
+	}
+	
+	
+	
 	private ResponseEntity<HttpResponse> createHttpResponse(HttpStatus httpStatus, String message) {
 		return new ResponseEntity<HttpResponse>(new HttpResponse(httpStatus.value(), httpStatus,
 				httpStatus.getReasonPhrase().toUpperCase(), message), httpStatus);
