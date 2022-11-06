@@ -17,9 +17,13 @@ import com.crescent.drone.exceptions.DroneBatteryException;
 import com.crescent.drone.exceptions.DroneExistsException;
 import com.crescent.drone.exceptions.DroneNotFoundException;
 import com.crescent.drone.exceptions.DroneWeightException;
+import com.crescent.drone.exceptions.InvalidMedicineCodeException;
+import com.crescent.drone.exceptions.InvalidMedicineNameException;
 import com.crescent.drone.model.Drone;
 import com.crescent.drone.model.Medicine;
 import com.crescent.drone.service.DroneService;
+
+import static com.crescent.drone.constants.MedicineConstants.*;
 
 @RestController
 public class DroneController {
@@ -38,7 +42,15 @@ public class DroneController {
 	}
 	
 	@PostMapping(path="/addMedicine/{serialNumber}")
-	public Medicine addMedicine(@RequestBody Medicine medicine,@PathVariable String serialNumber) throws DroneNotFoundException, DroneBatteryException, DroneWeightException {
+	public Medicine addMedicine(@RequestBody Medicine medicine,@PathVariable String serialNumber) throws DroneNotFoundException, 
+	DroneBatteryException, DroneWeightException, InvalidMedicineNameException, InvalidMedicineCodeException {
+		
+		if(!medicine.getName().matches("^[a-zA-Z0-9_-]*$")) {
+			throw new InvalidMedicineNameException(INVALID_NAME);
+		}
+		else if(!medicine.getCode().matches("^[A-Z0-9_]*$")) {
+			throw new InvalidMedicineCodeException(INVALID_CODE);
+		}
 		return droneService.addMedicine(medicine.getName(), medicine.getWeight(), medicine.getCode(), 
 				medicine.getImageUrl(), serialNumber);
 	}
