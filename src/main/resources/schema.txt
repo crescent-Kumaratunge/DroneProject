@@ -2,7 +2,7 @@ CREATE TABLE `drone` (
    `drone_id` int NOT NULL AUTO_INCREMENT,
    `battery` bigint NOT NULL,
    `model` varchar(30) DEFAULT NULL,
-   `serial_number` varchar(100) DEFAULT NULL,
+   `serial_number` varchar(100) DEFAULT NULL UNIQUE,
    `state` varchar(20) DEFAULT NULL,
    `weight` bigint NOT NULL,
    PRIMARY KEY (`drone_id`)

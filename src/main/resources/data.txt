@@ -1,0 +1,5 @@
+INSERT INTO `drone`.`drone` (`battery`, `model`, `serial_number`, `state`, `weight`) VALUES ('100', 'Lightweight', '123456789', 'IDLE', '0');
+INSERT INTO `drone`.`drone` (`battery`, `model`, `serial_number`, `state`, `weight`) VALUES ('100', 'Cruiserweight', '987654321', 'IDLE', '0');
+
+INSERT INTO `drone`.`medicine` (`code`, `image_url`, `name`, `weight`, `drone_id`) VALUES ('GGWP666', 'https://i-cf65.ch-static.com/content/dam/global/panadol/en_LK/760x820/300x300Panadol.png?auto=format', 'Panadol', '20', '1');
+INSERT INTO `drone`.`medicine` (`code`, `image_url`, `name`, `weight`, `drone_id`) VALUES ('GGWP123', 'https://www.astron.lk/assets/web/img/product-pics/products/f9cb73f385ae3eb576a0c6a501fc1379.png', 'Corex D', '250', '2');
