@@ -9,6 +9,7 @@ public class DroneConstants {
 	public static final String INVALID_DRONE_STATES="Invalid Drone state. Valid states are: 'IDLE', 'LOADING', 'LOADED', 'DELIVERING','DELIVERED' and 'RETURNING'";
 	public static final String[] DRONE_MODELS= {"Lightweight","Middleweight","Cruiserweight","Heavyweight"};
 	public static final String[] DRONE_STATES= {"IDLE","LOADING","LOADED","DELIVERING","DELIVERED","RETURNING"};
+	public static final String DRONE_NOT_READY="The drone you selected is not "+DRONE_STATES[0]+".";
 	public static final long MAX_WEIGHT=500;
 	public static final long MIN_BATTERY=25;
 	

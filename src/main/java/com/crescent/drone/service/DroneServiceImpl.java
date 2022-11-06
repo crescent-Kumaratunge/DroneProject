@@ -9,6 +9,7 @@ import com.crescent.drone.constants.DroneConstants;
 import com.crescent.drone.exceptions.DroneBatteryException;
 import com.crescent.drone.exceptions.DroneExistsException;
 import com.crescent.drone.exceptions.DroneNotFoundException;
+import com.crescent.drone.exceptions.DroneNotReadyException;
 import com.crescent.drone.exceptions.DroneWeightException;
 import com.crescent.drone.model.Drone;
 import com.crescent.drone.model.Medicine;
@@ -43,7 +44,7 @@ public class DroneServiceImpl implements DroneService {
 	}
 	@Override
 	public Medicine addMedicine(String name, long weight, String code, String imageUrl, String serialNumber) 
-			throws DroneNotFoundException, DroneBatteryException, DroneWeightException {
+			throws DroneNotFoundException, DroneBatteryException, DroneWeightException, DroneNotReadyException {
 		Drone drone=droneRepository.findBySerialNumber(serialNumber);
 		if(drone==null) {
 			throw new DroneNotFoundException(DRONE_NOT_FOUND+serialNumber);			
@@ -53,6 +54,9 @@ public class DroneServiceImpl implements DroneService {
 		}
 		else if(drone.getWeight()+weight>MAX_WEIGHT) {
 			throw new DroneWeightException(DRONE_WEIGT_LOW);
+		}
+		else if(!drone.getState().equals(DRONE_STATES[0])) {
+			throw new DroneNotReadyException(DRONE_NOT_READY);
 		}
 		else {
 		Medicine medicine=new Medicine(name, weight, code, imageUrl, drone);

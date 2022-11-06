@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.crescent.drone.exceptions.DroneBatteryException;
 import com.crescent.drone.exceptions.DroneExistsException;
 import com.crescent.drone.exceptions.DroneNotFoundException;
+import com.crescent.drone.exceptions.DroneNotReadyException;
 import com.crescent.drone.exceptions.DroneWeightException;
 import com.crescent.drone.exceptions.InvalidDroneModelException;
 import com.crescent.drone.exceptions.InvalidDroneStateException;
@@ -56,7 +57,7 @@ public class DroneController {
 	
 	@PostMapping(path="/addMedicine/{serialNumber}")
 	public ResponseEntity<Medicine> addMedicine(@RequestBody Medicine medicine,@PathVariable String serialNumber) throws DroneNotFoundException, 
-	DroneBatteryException, DroneWeightException, InvalidMedicineNameException, InvalidMedicineCodeException {
+	DroneBatteryException, DroneWeightException, InvalidMedicineNameException, InvalidMedicineCodeException, DroneNotReadyException {
 		
 		if(!medicine.getName().matches("^[a-zA-Z0-9_-]*$")) {
 			throw new InvalidMedicineNameException(INVALID_NAME);
