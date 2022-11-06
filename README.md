@@ -18,7 +18,7 @@ the app will be deployed on port 8082 (change into the desired port in applicati
 
 here are some sample rest urls.
 	
- 1) Get available drones- This GET method url will return all the drones which are in idle state, carries weight less than 500 and has a battery percentage more than or equal to 25.
+ 1) Get available drones- This GET endpoint will return all the drones which are in idle state, carries weight less than 500 and has a battery percentage more than or equal to 25.
   
   sample request url:http://localhost:8082/droneApi/getAvailableDrones
 	
@@ -43,7 +43,7 @@ here are some sample rest urls.
   ]
 	
 	
-  2) Register a Drone - This POST method url will register a drone with given input.
+  2) Register a Drone - This POST endpoint will register a drone with given input.
   
   sample request url: http://localhost:8082/droneApi/registerDrone
 	
@@ -65,7 +65,13 @@ here are some sample rest urls.
 	"battery": 100,
 	"state": "IDLE"
   }
-   
+ 
+3) Add medicine to a drone - This POST endpoint will add medicine to an idle drone if criterias are met.
+	please note that this url takes drone serial number 
+
+sample request url: http://localhost:8082/droneApi/addMedicine/12345
+	
+in the above 
   
   
 
