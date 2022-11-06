@@ -3,7 +3,7 @@ Drone Project
 
 This project is build using springboot based on java 8. Furthermore, it uses MySQL 8 as its DB.
 
-Before building the jar file, please configure application.yml file to point to your database. 
+Before building the jar file, please configure application.yml file to point to your database with credentials. 
 Furthermore, the current version does not fill up the database with dummy data. 
 
 In order to run the sql queries to insert data, please rename "data.txt" and "schema.txt" files in the resource folder to "data.sql" and "schema.sql". 
@@ -67,7 +67,7 @@ here are some sample rest urls.
   }
  
 3) Add medicine to a drone - This POST endpoint will add medicine to an idle drone if criterias are met.
-	please note that this url takes drone serial number 
+	please note that this url takes drone serial number as a path variable.
 
 sample request url: http://localhost:8082/droneApi/addMedicine/12345
 	
@@ -99,6 +99,52 @@ sample response: {
 		"state": "IDLE"
 	}
 }
+	
+4) Get medicine in a drone - This GET endpoint will return the medicine allocated to a drone.
+	
+	Please note that a seperate endpoint is needed to handle the clearing of the medicine in a drone. Alse that this url takes drone serial number as a path variable.
+
+
+	
+sample request url: http://localhost:8082/droneApi/getDroneMeds/123456789
+
+
+sample response: [
+	{
+		"medicineId": 1,
+		"name": "Panadol",
+		"weight": 20,
+		"code": "GGWP666",
+		"imageUrl": "https://i-cf65.ch-static.com/content/dam/global/panadol/en_LK/760x820/300x300Panadol.png?auto=format",
+		"drone": {
+			"droneId": 1,
+			"serialNumber": "123456789",
+			"model": "Lightweight",
+			"weight": 200,
+			"battery": 100,
+			"state": "IDLE"
+		}
+	},
+	{
+		"medicineId": 3,
+		"name": "Panadol",
+		"weight": 200,
+		"code": "MED1",
+		"imageUrl": "https://medlineplus.gov/images/Medicines_share.jpg",
+		"drone": {
+			"droneId": 1,
+			"serialNumber": "123456789",
+			"model": "Lightweight",
+			"weight": 200,
+			"battery": 100,
+			"state": "IDLE"
+		}
+	}
+]
+	
+
+5) 
   
+
   
 
