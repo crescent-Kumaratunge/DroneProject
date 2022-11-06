@@ -20,7 +20,7 @@ public class Drone implements Serializable{
 	@Column(name = "drone_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int droneId;
-	@Column(name = "serial_number")
+	@Column(name = "serial_number", unique = true)
 	private String serialNumber;
 	@Column(name = "model")
 	private String model;
