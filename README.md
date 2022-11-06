@@ -17,9 +17,11 @@ locate the jar file in the target directory and deploy it on a server or run in 
 the app will be deployed on port 8082 (change into the desired port in application.yml).
 
 here are some sample rest urls.
+	
  1) Get available drones- This GET method url will return all the drones which are in idle state, carries weight less than 500 and has a battery percentage more than or equal to 25.
   
   sample request url:http://localhost:8082/droneApi/getAvailableDrones
+	
   Sample response: 
   [
 	{
@@ -44,7 +46,9 @@ here are some sample rest urls.
   2) Register a Drone - This POST method url will register a drone with given input.
   
   sample request url: http://localhost:8082/droneApi/registerDrone
+	
   sample request body: 
+	
   {
 	"serialNumber":"1234",
 	"model":"Lightweight",
