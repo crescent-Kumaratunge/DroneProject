@@ -143,8 +143,21 @@ sample response: [
 ]
 	
 
-5) 
+5) Check battery of a given drone - This endpoint will return the battery level of a given drone serial number. note that the serial number is taken as a path variable.
+
+	
+sample request: http://localhost:8082/droneApi/getDroneBattery/123456789
+
+sample response: {
+	"battery": 100
+}
   
+
+
+	
+
+The schedule task is run every one minute which prints all the battery levels of all the drones to a log file named "DroneTask.log".
+The log file will be created in the directory where the jar file is. If tested using the IDE, it will be created in the root directory of project.
 
   
 
