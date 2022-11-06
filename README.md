@@ -39,6 +39,8 @@ here are some sample rest urls.
 		"state": "IDLE"
 	}
   ]
+	
+	
   2) Register a Drone - This POST method url will register a drone with given input.
   
   sample request url: http://localhost:8082/droneApi/registerDrone
