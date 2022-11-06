@@ -71,7 +71,34 @@ here are some sample rest urls.
 
 sample request url: http://localhost:8082/droneApi/addMedicine/12345
 	
-in the above 
+in the above url, 12345 is the serial number which is considered a unique column.
+
+	
+sample request body: {
+	"name": "Panadol",
+	"weight": 200,
+	"code": "MED1",
+	"imageUrl": "https://medlineplus.gov/images/Medicines_share.jpg"
+}
+	
+please note that the image url only is stored in this demonstration.
+	
+	
+sample response: {
+	"medicineId": 3,
+	"name": "Panadol",
+	"weight": 200,
+	"code": "MED1",
+	"imageUrl": "https://medlineplus.gov/images/Medicines_share.jpg",
+	"drone": {
+		"droneId": 1,
+		"serialNumber": "123456789",
+		"model": "Lightweight",
+		"weight": 200,
+		"battery": 100,
+		"state": "IDLE"
+	}
+}
   
   
 
