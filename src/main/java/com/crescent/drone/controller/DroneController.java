@@ -37,20 +37,21 @@ public class DroneController {
 	DroneService droneService;
 	
 	@GetMapping(path = "/getDroneMeds/{serialNumber}")
-	public List<Medicine> getDroneMeds(@PathVariable String serialNumber) throws DroneNotFoundException{
-		return droneService.getDroneMeds(serialNumber);
+	public ResponseEntity<List<Medicine>>  getDroneMeds(@PathVariable String serialNumber) throws DroneNotFoundException{
+		return new ResponseEntity<>(droneService.getDroneMeds(serialNumber),HttpStatus.OK);
+	
 	}
 	
 	@PostMapping(path = "/registerDrone")
-	public Drone registerDrone(@RequestBody Drone drone) throws DroneExistsException, InvalidDroneModelException {
+	public ResponseEntity<Drone> registerDrone(@RequestBody Drone drone) throws DroneExistsException, InvalidDroneModelException {
 		if(!Arrays.asList(DRONE_MODELS).contains(drone.getModel())) {
 			throw new InvalidDroneModelException(INVALID_DRONE_MODEL);
 		}
-		return droneService.registerDrone(drone);
+		return new ResponseEntity<>(droneService.registerDrone(drone),HttpStatus.OK);
 	}
 	
 	@PostMapping(path="/addMedicine/{serialNumber}")
-	public Medicine addMedicine(@RequestBody Medicine medicine,@PathVariable String serialNumber) throws DroneNotFoundException, 
+	public ResponseEntity<Medicine> addMedicine(@RequestBody Medicine medicine,@PathVariable String serialNumber) throws DroneNotFoundException, 
 	DroneBatteryException, DroneWeightException, InvalidMedicineNameException, InvalidMedicineCodeException {
 		
 		if(!medicine.getName().matches("^[a-zA-Z0-9_-]*$")) {
@@ -59,13 +60,13 @@ public class DroneController {
 		else if(!medicine.getCode().matches("^[A-Z0-9_]*$")) {
 			throw new InvalidMedicineCodeException(INVALID_CODE);
 		}
-		return droneService.addMedicine(medicine.getName(), medicine.getWeight(), medicine.getCode(), 
-				medicine.getImageUrl(), serialNumber);
+		return new ResponseEntity<>(droneService.addMedicine(medicine.getName(), medicine.getWeight(), medicine.getCode(), 
+				medicine.getImageUrl(), serialNumber),HttpStatus.OK);
 	}
 	
 	@GetMapping(path = "/getAvailableDrones")
-	public List<Drone> getAvailableDrones(){
-		return droneService.findAvailableDrones();
+	public ResponseEntity<List<Drone>> getAvailableDrones(){
+		return new ResponseEntity<>(droneService.findAvailableDrones(),HttpStatus.OK);
 	}
 	
 	@GetMapping(path = "/getDroneBattery/{serialNumber}")
