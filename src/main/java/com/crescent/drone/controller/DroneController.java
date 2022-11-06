@@ -20,6 +20,7 @@ import com.crescent.drone.exceptions.DroneExistsException;
 import com.crescent.drone.exceptions.DroneNotFoundException;
 import com.crescent.drone.exceptions.DroneWeightException;
 import com.crescent.drone.exceptions.InvalidDroneModelException;
+import com.crescent.drone.exceptions.InvalidDroneStateException;
 import com.crescent.drone.exceptions.InvalidMedicineCodeException;
 import com.crescent.drone.exceptions.InvalidMedicineNameException;
 import com.crescent.drone.model.Drone;
@@ -43,9 +44,12 @@ public class DroneController {
 	}
 	
 	@PostMapping(path = "/registerDrone")
-	public ResponseEntity<Drone> registerDrone(@RequestBody Drone drone) throws DroneExistsException, InvalidDroneModelException {
+	public ResponseEntity<Drone> registerDrone(@RequestBody Drone drone) throws DroneExistsException, InvalidDroneModelException, InvalidDroneStateException {
 		if(!Arrays.asList(DRONE_MODELS).contains(drone.getModel())) {
 			throw new InvalidDroneModelException(INVALID_DRONE_MODEL);
+		}
+		if(!Arrays.asList(DRONE_STATES).contains(drone.getState())) {
+			throw new InvalidDroneStateException(INVALID_DRONE_STATES);
 		}
 		return new ResponseEntity<>(droneService.registerDrone(drone),HttpStatus.OK);
 	}

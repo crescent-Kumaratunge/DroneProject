@@ -46,6 +46,10 @@ public class ExceptionHandling implements ErrorController {
 	public ResponseEntity<HttpResponse> invalidDroneModelException(InvalidDroneModelException exception){
 		return createHttpResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
 	}
+	@ExceptionHandler(InvalidDroneStateException.class)
+	public ResponseEntity<HttpResponse> invalidDroneStateException(InvalidDroneStateException exception){
+		return createHttpResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
+	}
 	private ResponseEntity<HttpResponse> createHttpResponse(HttpStatus httpStatus, String message) {
 		return new ResponseEntity<HttpResponse>(new HttpResponse(httpStatus.value(), httpStatus,
 				httpStatus.getReasonPhrase().toUpperCase(), message), httpStatus);
