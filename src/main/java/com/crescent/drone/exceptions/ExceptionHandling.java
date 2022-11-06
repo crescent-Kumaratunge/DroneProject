@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.crescent.drone.utils.HttpResponse;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 
 @RestControllerAdvice
 public class ExceptionHandling implements ErrorController {
@@ -37,8 +38,16 @@ public class ExceptionHandling implements ErrorController {
 	public ResponseEntity<HttpResponse> invalidMedicineCodeException(InvalidMedicineCodeException exception){
 		return createHttpResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
 	}
+	@ExceptionHandler(InvalidFormatException.class)
+	public ResponseEntity<HttpResponse> illegalArgumentException(InvalidFormatException exception){
+		return createHttpResponse(HttpStatus.BAD_REQUEST, exception.getOriginalMessage());
+	}
+	@ExceptionHandler(InvalidDroneModelException.class)
+	public ResponseEntity<HttpResponse> invalidDroneModelException(InvalidDroneModelException exception){
+		return createHttpResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
+	}
 	private ResponseEntity<HttpResponse> createHttpResponse(HttpStatus httpStatus, String message) {
 		return new ResponseEntity<HttpResponse>(new HttpResponse(httpStatus.value(), httpStatus,
-				httpStatus.getReasonPhrase().toUpperCase(), message.toUpperCase()), httpStatus);
+				httpStatus.getReasonPhrase().toUpperCase(), message), httpStatus);
 	}
 }

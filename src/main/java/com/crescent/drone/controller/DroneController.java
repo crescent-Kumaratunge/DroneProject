@@ -1,5 +1,6 @@
 package com.crescent.drone.controller;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,12 +12,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.crescent.drone.exceptions.DroneBatteryException;
 import com.crescent.drone.exceptions.DroneExistsException;
 import com.crescent.drone.exceptions.DroneNotFoundException;
 import com.crescent.drone.exceptions.DroneWeightException;
+import com.crescent.drone.exceptions.InvalidDroneModelException;
 import com.crescent.drone.exceptions.InvalidMedicineCodeException;
 import com.crescent.drone.exceptions.InvalidMedicineNameException;
 import com.crescent.drone.model.Drone;
@@ -24,8 +27,10 @@ import com.crescent.drone.model.Medicine;
 import com.crescent.drone.service.DroneService;
 
 import static com.crescent.drone.constants.MedicineConstants.*;
+import static com.crescent.drone.constants.DroneConstants.*;
 
 @RestController
+@RequestMapping(path = "/droneApi")
 public class DroneController {
 	
 	@Autowired
@@ -37,7 +42,10 @@ public class DroneController {
 	}
 	
 	@PostMapping(path = "/registerDrone")
-	public Drone registerDrone(@RequestBody Drone drone) throws DroneExistsException {
+	public Drone registerDrone(@RequestBody Drone drone) throws DroneExistsException, InvalidDroneModelException {
+		if(!Arrays.asList(DRONE_MODELS).contains(drone.getModel())) {
+			throw new InvalidDroneModelException(INVALID_DRONE_MODEL);
+		}
 		return droneService.registerDrone(drone);
 	}
 	
